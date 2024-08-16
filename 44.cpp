@@ -78,7 +78,7 @@ void deleteNode(int pos, Node *&head, Node *&tail)
     {
         Node *temp = head;
         head = head->next;
-        // memory free start ndoe
+        // memory free start node
         temp->next = NULL;
         delete temp;
     }
@@ -95,16 +95,16 @@ void deleteNode(int pos, Node *&head, Node *&tail)
             curr = curr->next;
             cnt++;
         }
-        if (curr->next==NULL){
-        tail=prev;
-        prev->next = NULL;
-        delete (curr);
-        return;
-}
+        if (curr->next == NULL)
+        {
+            tail = prev;
+            prev->next = NULL;
+            delete (curr);
+            return;
+        }
         prev->next = curr->next;
         curr->next = NULL;
         delete curr;
-       
     }
 }
 int main()
@@ -138,7 +138,10 @@ int main()
     print(head);
     cout << "head " << head->data << endl;
     cout << "tail " << tail->data << endl;
+
     deleteNode(5, head, tail);
     print(head);
+    cout << "head " << head->data << endl;
+    cout << "tail " << tail->data << endl;
     return 0;
 }
