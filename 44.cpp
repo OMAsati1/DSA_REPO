@@ -1,4 +1,5 @@
 #include <iostream>
+#include <map>
 using namespace std;
 class Node
 {
@@ -98,14 +99,111 @@ void deleteNode(int pos, Node *&head, Node *&tail)
         if (curr->next == NULL)
         {
             tail = prev;
-            prev->next = NULL;
-            delete (curr);
-            return;
+            // prev->next = NULL;
+            // delete (curr);
+            // return;
         }
         prev->next = curr->next;
         curr->next = NULL;
         delete curr;
     }
+}
+bool isCircular(Node *head)
+{
+    if (head == NULL)
+    {
+        return true;
+    }
+    Node *temp = head->next;
+    while (temp != NULL && temp != head)
+    {
+        temp = temp->next;
+    }
+    if (temp == head)
+    {
+        return true;
+    }
+    return false;
+}
+bool isCycle(Node *head)
+{
+    if (head == NULL)
+    {
+        return false;
+    }
+
+    map<Node *, bool> visited; // Create a map to store visited nodes
+
+    Node *temp = head;
+    while (temp != nullptr)
+    {
+
+        if (visited[temp] == true)
+        {
+            return true;
+        }
+        visited[temp] = true;
+        temp = temp->next;
+    }
+
+    return false;
+}
+Node *floydDetectLoop(Node *head)
+{
+    if (head == NULL)
+    {
+        return NULL;
+    }
+
+    Node *fast = head;
+    Node *slow = head;
+    while (fast != NULL && slow != NULL)
+    {
+        fast = fast->next;
+        if (fast != NULL)
+        {
+            fast = fast->next;
+        }
+        slow = slow->next;
+        if (slow == fast)
+        {
+            return slow;
+        }
+    }
+
+    return NULL;
+}
+Node *startingNode(Node *head)
+{
+    if (head == NULL)
+    {
+        return NULL;
+    }
+    Node *ptOfInt = floydDetectLoop(head);
+    Node *slow = head;
+    while (slow != ptOfInt)
+    {
+        slow = slow->next;
+        ptOfInt = ptOfInt->next;
+    }
+    return slow;
+}
+void removeLoop(Node *head)
+{
+    if (head == NULL)
+    {
+        return ;
+    }
+    Node *startOfLoop = startingNode(head);
+     if(startOfLoop == NULL)
+        return ;
+    Node *temp = startOfLoop;
+    while (temp != startOfLoop)
+    {
+        temp = temp->next;
+        
+    }
+      temp->next=NULL;
 }
 int main()
 {
@@ -143,5 +241,47 @@ int main()
     print(head);
     cout << "head " << head->data << endl;
     cout << "tail " << tail->data << endl;
+    cout << endl;
+
+    if (isCircular(tail))
+    {
+        cout << "This is a Circular Linklist" << endl;
+    }
+    else
+    {
+        cout << "This is a not a Circular Linklist" << endl;
+    }
+    tail->next = head->next;
+
+    /* if (isCycle(head))
+     {
+         cout << "yes it has cycle" << endl;
+     }
+     else
+     {
+         cout << "does not have cycle" << endl;
+     } */
+
+    if (floydDetectLoop(head) != NULL)
+    {
+        cout << "yes it has cycle" << endl;
+    }
+    else
+    {
+        cout << "does not have cycle" << endl;
+    }
+
+    cout << "Cycle start from: " << startingNode(head)->data << endl;
+    removeLoop(head);
+
+     if (floydDetectLoop(head) != NULL)
+    {
+        cout << "yes it has cycle" << endl;
+    }
+    else
+    {
+        cout << "does not have cycle" << endl;
+    }
+    cout << "Cycle start from: " << startingNode(head)->data << endl;
     return 0;
 }

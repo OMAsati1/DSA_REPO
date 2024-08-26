@@ -54,7 +54,7 @@ void quickSort(int *arr, int s, int e)
 }
 int main()
 {
-    int arr[] = {3, 2, 34, 66, 23, 12,43,1,75};
+    int arr[] = {1,9,3,8};
     int n = sizeof(arr) / 4;
     quickSort(arr, 0, n - 1);
     cout<<"final result"<<endl;
