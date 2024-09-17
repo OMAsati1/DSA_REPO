@@ -192,18 +192,17 @@ void removeLoop(Node *head)
 {
     if (head == NULL)
     {
-        return ;
+        return;
     }
     Node *startOfLoop = startingNode(head);
-     if(startOfLoop == NULL)
-        return ;
+    if (startOfLoop == NULL)
+        return;
     Node *temp = startOfLoop;
     while (temp != startOfLoop)
     {
         temp = temp->next;
-        
     }
-      temp->next=NULL;
+    temp->next = NULL;
 }
 int main()
 {
@@ -274,7 +273,7 @@ int main()
     cout << "Cycle start from: " << startingNode(head)->data << endl;
     removeLoop(head);
 
-     if (floydDetectLoop(head) != NULL)
+    if (floydDetectLoop(head) != NULL)
     {
         cout << "yes it has cycle" << endl;
     }
