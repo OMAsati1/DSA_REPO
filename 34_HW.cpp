@@ -46,7 +46,7 @@
 #include <vector>
 using namespace std;
 
-void insertionSort(vector<int> &arr, int n, int index = 1)
+void insertionSort(vector<int> &arr, int n, int index)
 {
     // Base case: If the entire array is sorted
     if (index == n)
@@ -74,7 +74,7 @@ int main()
         cout << arr[i] << " ";
     cout << endl;
 
-    insertionSort(arr, n);
+    insertionSort(arr, n,1);
 
     cout << "Sorted array: ";
     for (int i = 0; i < n; i++)
